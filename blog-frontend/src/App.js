@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import './App.css';
+import CreateBlogForm from './CreateBlog';
+import BlogList from './ListBlog';
 
 function App() {
   const blogs = [
@@ -19,17 +22,18 @@ function App() {
     },
   ];
 
+  const [blog, setBlog] = useState(blogs);
+  const getBlog = (blog) => {
+    setBlog((prevBlog) => [
+      ...prevBlog,
+      blog
+    ]);
+  };
+
   return (
     <div>
-      {blogs.map(blog => {
-          return (
-            <div>
-              <h1>{blog.blogTitle}</h1>
-              <h5>By {blog.bloggerName} </h5>
-              <p>{blog.blogText}</p>
-            </div>
-          );
-      })}
+      <BlogList blogList={blog}/>
+      <CreateBlogForm getNewBlog={getBlog}/>
     </div>
   );
 }
