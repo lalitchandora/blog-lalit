@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-
+import { Link, useNavigate } from 'react-router-dom';
 const CreateBlogForm = (props) => {
-    const [title, setTitle] = React.useState('');
-    const [text, setText] = React.useState('');
+    const [title, setTitle] = useState('');
+    const [text, setText] = useState('');
+    let navigate = useNavigate();
 
-    function handleSubmit(event){
+    async function usehandleSubmit(event){
         event.preventDefault();
         console.log(title, text);
         let blog = {
@@ -15,11 +16,13 @@ const CreateBlogForm = (props) => {
         props.getNewBlog(blog);
         setTitle('');
         setText('');
+        
+        navigate('/')
     }
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={usehandleSubmit}>
                 <input type="text" placeholder='Enter Title' value={title} onChange={event => setTitle(event.target.value)}/>
                 <br></br>
                 <textarea cols="20" rows="5" placeholder='Enter Text' value={text} onChange={event => setText(event.target.value)}></textarea>

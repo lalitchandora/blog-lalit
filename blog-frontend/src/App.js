@@ -1,7 +1,9 @@
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { useState } from 'react';
 import './App.css';
 import CreateBlogForm from './CreateBlog';
 import BlogList from './ListBlog';
+import SingleBlogItem from './SingleBlog';
 
 function App() {
   const blogs = [
@@ -31,9 +33,14 @@ function App() {
   };
 
   return (
-    <div>
-      <BlogList blogList={blog}/>
-      <CreateBlogForm getNewBlog={getBlog}/>
+    <div className='app'>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<BlogList blogList={blog}/>}/>
+          <Route path='/create' element={<CreateBlogForm getNewBlog={getBlog}/>} />
+          <Route path='/:blogId' element={<SingleBlogItem blogList={blog}/>} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
